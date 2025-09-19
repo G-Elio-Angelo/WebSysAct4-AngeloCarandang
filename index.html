@@ -1,52 +1,237 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Student Portfolio</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Angelo Carandang | Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
+    /* ===== General ===== */
     body {
       font-family: Arial, sans-serif;
-      background: #f8f9fa;
+      scroll-behavior: smooth;
+      color: #fff;
+      position: relative;
     }
-    .logo {
-      width: 50px;
-      height: 50px;
+
+    h1, h2, h5 {
+      font-weight: bold;
+    }
+
+    section {
+      padding: 80px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== Video Background ===== */
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
+
+    /* ===== Navbar ===== */
+    .navbar {
+      background: rgba(255, 182, 193, 0.8);
+      transition: background 0.3s ease-in-out;
+      z-index: 10;
+    }
+
+    .navbar.scrolled {
+      background: rgba(199, 21, 133, 0.9);
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.4rem;
+      color: #fff !important;
+    }
+
+    .nav-link {
+      color: #fff !important;
+      transition: color 0.2s ease-in-out;
+    }
+
+    .nav-link:hover {
+      color: #ffd6e0 !important;
+    }
+
+    /* ===== Header ===== */
+    header {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      color: #fff;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: #ffe4ec;
+    }
+
+    .btn-primary {
+      background: #ff69b4;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: #c71585;
+    }
+
+    /* ===== About Section ===== */
+    .profile-img {
+      max-width: 250px;
+      border: 5px solid #ff69b4;
+      margin-bottom: 20px;
+    }
+
+    .contact-info h5 {
+      margin-top: 20px;
+      color: #ffb6c1;
+    }
+
+    /* ===== Section Titles ===== */
+    #skills h2,
+    #hobbies h2,
+    #projects h2,
+    #about h2,
+    #contact h2 {
+      color: #ffb6c1;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    /* ===== Flip Card ===== */
+    .flip-card {
+      background: transparent;
+      perspective: 1000px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border: 2px solid #ff69b4;
       border-radius: 10px;
-      background: linear-gradient(135deg, #7c3aed, #06b6d4);
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
+    }
+
+    .flip-card-front h5 {
+      color: #ffb6c1;
+    }
+
+    .flip-card-back {
+      transform: rotateY(180deg);
+      background: rgba(199, 21, 133, 0.9);
+    }
+
+    /* ===== Projects ===== */
+    .card {
+      border: 2px solid #ff69b4;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-title {
+      color: #ffb6c1;
       font-weight: bold;
     }
-    section {
-      padding: 60px 0;
+
+    .project-img {
+      max-height: 200px;
+      object-fit: contain;
     }
+
+    /* ===== Contact Form ===== */
+    #contact .form-control {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    #contact .form-control:focus {
+      border-color: #ff69b4;
+      box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+    }
+
+    /* ===== Footer ===== */
     footer {
-      background: #212529;
+      background: rgba(199, 21, 133, 0.9);
       color: #fff;
-      padding: 20px 0;
       text-align: center;
+      padding: 20px 0;
+      position: relative;
+      z-index: 2;
     }
   </style>
 </head>
 <body>
+  <!-- Video Background -->
+  <video autoplay muted loop class="video-bg">
+    <source src="Images/cherry.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="#">
-        <div class="logo me-2">PP</div>My Personal Portfolio
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <a class="navbar-brand ms-2" href="#">Portfolio</a>
+      <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#about">About Me</a></li>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#hobbies">Hobbies</a></li>
           <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
         </ul>
       </div>
@@ -54,38 +239,100 @@
   </nav>
 
   <!-- Hero -->
-  <header class="bg-light text-center py-5 mt-5">
-    <div class="container">
-      <h1 class="fw-bold">Hi, I'm Your Name</h1>
-      <p class="lead text-muted">A passionate Web Developer & Student of Batangas State University</p>
-      <a href="#projects" class="btn btn-primary btn-lg">View My Work</a>
+  <header>
+    <div class="container text-center hero-content">
+      <h1>Hi, I'm Angelo Carandang</h1>
+      <p>Aspiring Game Developer & Technology Enthusiast</p>
+      <a href="#skills" class="btn btn-primary">Explore More</a>
     </div>
   </header>
 
-  <!-- About Me -->
-  <section id="about">
+  <!-- Skills -->
+  <section id="skills">
     <div class="container">
-      <div class="row align-items-center">
-        <div class="col-md-4 text-center">
-          <img src="https://via.placeholder.com/200" alt="Profile" class="rounded-circle img-fluid">
+      <h2>Skills</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <h5>Web Development</h5>
+              </div>
+              <div class="flip-card-back">
+                <p>Experienced in different languages of programming</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-8">
-          <h2>About Me</h2>
-          <p>Hello! I am a student currently studying web development. I enjoy creating responsive and user-friendly websites using HTML, CSS, and Bootstrap. My goal is to apply my skills in real-world projects and continuously improve as a developer.</p>
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <h5>Database Management</h5>
+              </div>
+              <div class="flip-card-back">
+                <p>Skilled in handling Databases</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <h5>Data Presentation</h5>
+              </div>
+              <div class="flip-card-back">
+                <p>Skilled in presenting Data and Informations</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Skills -->
-  <section id="skills" class="bg-light">
-    <div class="container text-center">
-      <h2>Skills</h2>
-      <div class="row mt-4">
-        <div class="col-md-3"><div class="card p-3">HTML</div></div>
-        <div class="col-md-3"><div class="card p-3">CSS</div></div>
-        <div class="col-md-3"><div class="card p-3">Bootstrap</div></div>
-        <div class="col-md-3"><div class="card p-3">JavaScript</div></div>
+  <!-- Hobbies -->
+  <section id="hobbies">
+    <div class="container">
+      <h2>Hobbies</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <h5>Photography</h5>
+              </div>
+              <div class="flip-card-back">
+                <p>Loves to capture places that hold memories</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <h5>Gaming</h5>
+              </div>
+              <div class="flip-card-back">
+                <p>Strategy Games, FPS Games, and MOBA</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <h5>Music</h5>
+              </div>
+              <div class="flip-card-back">
+                <p>Loves listening to JPop music and also Aurora</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -93,32 +340,21 @@
   <!-- Projects -->
   <section id="projects">
     <div class="container">
-      <h2 class="text-center">Projects</h2>
-      <div class="row mt-4">
-        <div class="col-md-4">
-          <div class="card h-100">
-            <a href="https://github.com/AliyahCalanoc/Fair-Trade-E-Commerce-Platform">   
-            <img src="Images/Gojo.png" class="card-img-top" alt="Project1"></a>
+      <h2>Projects</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card">
+            <img src="Images/AGH.png" class="project-img card-img-top" alt="Project 1">
             <div class="card-body">
-              <h5 class="card-title">First Collaboration Project</h5>
+              <h5 class="card-title">Fair Trade E-Commerce Platform</h5>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card h-100">
-            <a href="https://github.com/Seanski29/Console-Based-Student-Enrollment-and-RegistrationSystem">
-            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Project2"></a>
+        <div class="col-md-6">
+          <div class="card">
+            <img src="Images/Inventory.png" class="project-img card-img-top" alt="Project 2">
             <div class="card-body">
-              <h5 class="card-title">Second Collaboration Project</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Project 3">
-            <div class="card-body">
-              <h5 class="card-title">Project Three</h5>
-              <p class="card-text">Description of project three goes here.</p>
+              <h5 class="card-title">Scaling-Small-Enterprises-A-Web-Based-Platform-for-Store-Monitoring-and-Inventory-Management</h5>
             </div>
           </div>
         </div>
@@ -126,21 +362,50 @@
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="bg-light">
+  <!-- About (Moved to Bottom) -->
+  <section id="about">
     <div class="container">
-      <h2 class="text-center">Contact Me</h2>
-      <form class="mt-4 mx-auto" style="max-width:600px;" action="mailto:youremail@example.com" method="post" enctype="text/plain">
-        <div class="mb-3">
-          <input type="text" class="form-control" placeholder="Your Name" name="name" required>
+      <h2>About Me</h2>
+      <div class="row align-items-center">
+        <div class="col-md-4 text-center">
+          <img src="Images/Profile.jpg" class="profile-img img-fluid rounded-circle" alt="Profile">
         </div>
-        <div class="mb-3">
-          <input type="email" class="form-control" placeholder="Your Email" name="email" required>
+        <div class="col-md-8">
+          <p>
+            I am Angelo Carandang, I'm from San Jose, Batangas. 20 Years old. I'm studying at Batangas State University NEU - Lipa City Campus.
+          </p>
+          <div class="contact-info">
+            <h5>Contact Information</h5>
+            <ul class="list-unstyled">
+              <li>Email: angelo@example.com</li>
+              <li>Phone: +63 912 345 6789</li>
+              <li>Location: Philippines</li>
+            </ul>
+          </div>
         </div>
-        <div class="mb-3">
-          <textarea class="form-control" rows="5" placeholder="Your Message" name="message" required></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact Me</h2>
+      <form>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Your Name">
+          </div>
+          <div class="col-md-6">
+            <input type="email" class="form-control" placeholder="Your Email">
+          </div>
+          <div class="col-12">
+            <textarea class="form-control" rows="5" placeholder="Your Message"></textarea>
+          </div>
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary">Send Message</button>
       </form>
     </div>
   </section>
@@ -148,10 +413,20 @@
   <!-- Footer -->
   <footer>
     <div class="container">
-      <p>© 2025 Student Portfolio | Built with HTML, CSS, and Bootstrap</p>
+      <p>© 2025 Angelo Carandang. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
 </body>
 </html>
